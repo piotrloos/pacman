@@ -7,8 +7,8 @@ class Pacman extends Component {
     state = {
         direction: 'right',
         position: {
-            left: 0,
-            top: 0,
+            left: 20,
+            top: 20,
         }
     }
 
@@ -22,16 +22,45 @@ class Pacman extends Component {
     }
 
     handleKeyDown = (event) => {
-        console.log(event.keyCode, event.key);
+
+        const currentTop = this.state.position.top;
+        const currentLeft = this.state.position.left;
+
+        //37 ArrowLeft
+        //38 ArrowUp
+        //39 ArrowRight
+        //40 ArrowDown
+
+        if(event.key === "ArrowLeft") {
+            this.setState({
+                direction: "left",
+            })
+        }
+        else if(event.key === "ArrowUp") {
+            this.setState({
+                direction: "up",
+            })
+        }
+        else if(event.key === "ArrowRight") {
+            this.setState({
+                direction: "right",
+            })
+        }
+        else if(event.key === "ArrowDown") {
+            this.setState({
+                direction: "down",
+            })
+        }
     }
 
     render () {
+        const {direction, position} = this.state
         return (
             <div
                 ref={this.pacmanRef}
-                className="pacman"
+                className={`pacman pacman-${direction}`}
                 tabIndex="0"
-                style={this.state.position}
+                style={position}
                 onKeyDown={this.handleKeyDown}
                 >
                 <PacmanSvg />
