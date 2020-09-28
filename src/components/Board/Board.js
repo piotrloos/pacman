@@ -9,9 +9,9 @@ class Board extends Component {
         return (
             <div className="board">
                 <Pacman />
+                {/* <Ghost />
                 <Ghost />
-                <Ghost />
-                <Ghost />
+                <Ghost /> */}
                 <Food />
                 <Food />
             </div>
