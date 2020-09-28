@@ -10,7 +10,7 @@
 }
 
 .pacman-right {
-    
+    transform: none;
 }
 
 .pacman-left {

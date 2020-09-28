@@ -2,5 +2,20 @@
     position: absolute;
     width: 50px;
     height: 50px;
-    color: gray;
+}
+
+.ghost-red {
+    fill: rgb(224, 97, 97);
+}
+
+.ghost-blue {
+    fill: rgb(96, 96, 221);
+}
+
+.ghost-yellow {
+    fill: rgb(211, 211, 112);
+}
+
+.ghost-pink {
+    fill: rgb(214, 153, 163);
 }
