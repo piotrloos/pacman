@@ -13,8 +13,8 @@ class Board extends Component {
                 <Ghost color="blue" />
                 <Ghost color="yellow" /> */}
                 <Ghost color="pink" />
-                <Food />
-                <Food />
+                <Food position={{top: 100, left: 100}} />
+                <Food position={{top: 200, left: 200}} />
             </div>
         )
     }
