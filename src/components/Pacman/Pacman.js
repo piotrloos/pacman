@@ -92,7 +92,7 @@ class Pacman extends Component {
 }
 
 Pacman.defaultProps = {
-    fieldSize: 50,
+
 }
 
 export default Pacman;

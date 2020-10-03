@@ -4,14 +4,15 @@ import './style.css';
 
 class Food extends Component {
     state = {
-        position: {
-            top: this.props.position.top,
-            left: this.props.position.left,
-        },
         hidden: false,
     }
     render() {
-        const {position, hidden} = this.state;
+        const {hidden} = this.state;
+        const {fieldSize} = this.props;
+        const position = {
+            top: this.props.position.top * fieldSize,
+            left: this.props.position.left * fieldSize,
+        }
         return (
             <div style={position} className={hidden ? 'food hidden' : 'food'}>
                 <div className="food-dot"></div>
@@ -21,12 +22,7 @@ class Food extends Component {
 }
 
 Food.defaultProps = {
-    size: 50,
     hidden: false,
-    position: {
-        top: 0,
-        left: 0,
-    }
 }
 
 export default Food;

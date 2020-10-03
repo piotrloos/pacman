@@ -14,11 +14,13 @@ class Ghost extends Component {
     }
 
     componentDidMount() {
-        this.ghostMovementInterval = setInterval(this.changeDirection, 1000);
+        this.ghostMovementInterval = setInterval(this.move, 500)
+        this.ghostChangeDirectionInterval = setInterval(this.changeDirection, 1000);
     }
 
     componentWillUnmount() {
         clearInterval(this.ghostMovementInterval);
+        clearInterval(this.ghostChangeDirectionInterval);
     }
 
     changeDirection = () => {
@@ -27,7 +29,7 @@ class Ghost extends Component {
         this.setState({
             direction: movementArray[movement],
         })
-        this.move();
+        // this.move();
     }
 
     move = () => {
@@ -89,7 +91,6 @@ class Ghost extends Component {
 
 Ghost.defaultProps = {
     color: 'pink',
-    fieldSize: 50,
 }
 
 export default Ghost;
