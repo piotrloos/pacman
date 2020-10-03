@@ -25,7 +25,7 @@ class Pacman extends Component {
 
         const currentTop = this.state.position.top;
         const currentLeft = this.state.position.left;
-        const {step, border, size, topScoreBoardHeight} = this.props;
+        const {width, height} = this.props;
 
         //37 ArrowLeft
         //38 ArrowUp
@@ -36,7 +36,7 @@ class Pacman extends Component {
             this.setState({
                 position: {
                     top: currentTop,
-                    left: Math.max(currentLeft - step, 0),
+                    left: Math.max(currentLeft - 1, 0),
                 },
                 direction: "left",
             })
@@ -44,7 +44,7 @@ class Pacman extends Component {
         else if(event.key === "ArrowUp") {
             this.setState({
                 position: {
-                    top: Math.max(currentTop - step, 0),
+                    top: Math.max(currentTop - 1, 0),
                     left: currentLeft,
                 },
                 direction: "up",
@@ -54,7 +54,7 @@ class Pacman extends Component {
             this.setState({
                 position: {
                     top: currentTop,
-                    left: Math.min(currentLeft + step, window.innerWidth - border - size),
+                    left: Math.min(currentLeft + 1, width - 1),
                 },
                 direction: "right",
             })
@@ -62,7 +62,7 @@ class Pacman extends Component {
         else if(event.key === "ArrowDown") {
             this.setState({
                 position: {
-                    top: Math.min(currentTop + step, window.innerHeight - border - size - topScoreBoardHeight),
+                    top: Math.min(currentTop + 1, height - 1),
                     left: currentLeft,
                 },
                 direction: "down",
@@ -71,7 +71,12 @@ class Pacman extends Component {
     }
 
     render () {
-        const {direction, position} = this.state
+        const {direction} = this.state;
+        const {fieldSize} = this.props;
+        const position = {
+            top: this.state.position.top * fieldSize,
+            left: this.state.position.left * fieldSize,
+        }
         return (
             <div
                 ref={this.pacmanRef}
@@ -87,10 +92,7 @@ class Pacman extends Component {
 }
 
 Pacman.defaultProps = {
-    size: 50,
-    step: 50,
-    border: 10,
-    topScoreBoardHeight: 50,
+    fieldSize: 50,
 }
 
 export default Pacman;
