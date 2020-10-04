@@ -11,12 +11,38 @@ class Board extends Component {
     }
 
     constructor(props) {
-        super(props)
+        super(props);
 
-        this.foods = []
-        for (let w = 0; w < this.state.width; w++) {
-            for (let h = 0; h < this.state.height; h++) {
-                this['food' + w + ',' + h] = React.createRef();
+        this.foodRefs = [];
+        for (let x = 0; x < this.state.width; x++) {
+            for (let y = 0; y < this.state.height; y++) {
+                this.foodRefs[x + ',' + y] = React.createRef();
+            }
+        }
+
+        this.pacmanRef = React.createRef();
+    }
+
+    componentDidMount() {
+        this.foodInterval = setInterval(this.markFoodHidden, 25);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.foodInterval);
+    }
+
+    markFoodHidden = () => {
+        const pacmanX = this.pacmanRef.current.state.position.left;
+        const pacmanY = this.pacmanRef.current.state.position.top;
+        const {width, height} = this.state;
+
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
+                let currentFood = this.foodRefs[x + ',' + y].current;
+                if (x === pacmanX && y === pacmanY && !currentFood.state.hidden) {
+                    currentFood.setHidden();
+                    //increaseScore
+                }
             }
         }
     }
@@ -24,30 +50,31 @@ class Board extends Component {
     render () {
         const {width, height} = this.state;
         const {fieldSize} = this.props;
+        let hidden = false;
 
         let foods = []
-        for (let w = 0; w < this.state.width; w++) {
-            for (let h = 0; h < this.state.height; h++) {
-                if (w !== 0 || h !== 0) {
-                    const position = {
-                        top: h,
-                        left: w,
-                    }
-                    foods.push(
-                        <Food
-                            key={`food-elem-${w},${h}`}
-                            position={position}
-                            ref={this.foods['food' + w + ',' + h]}
-                            fieldSize={fieldSize}
-                        />
-                    )
+        for (let x = 0; x < this.state.width; x++) {
+            for (let y = 0; y < this.state.height; y++) {
+                const position = {
+                    left: x,
+                    top: y,
                 }
+                hidden = (x === 0 && y === 0);
+                foods.push(
+                    <Food
+                        ref={this.foodRefs[x + ',' + y]}
+                        key={`food-elem-${x},${y}`}
+                        position={position}
+                        fieldSize={fieldSize}
+                        hidden={hidden}
+                    />
+                )
             }
         }
 
         return (
             <div className="board">
-                <Pacman width={width} height={height} fieldSize={fieldSize} />
+                <Pacman width={width} height={height} fieldSize={fieldSize} ref={this.pacmanRef} />
                 <Ghost color="red" width={width} height={height} fieldSize={fieldSize} />
                 <Ghost color="blue" width={width} height={height} fieldSize={fieldSize} />
                 <Ghost color="yellow" width={width} height={height} fieldSize={fieldSize} />

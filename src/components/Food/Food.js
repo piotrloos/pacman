@@ -4,8 +4,15 @@ import './style.css';
 
 class Food extends Component {
     state = {
-        hidden: false,
+        hidden: this.props.hidden,
     }
+
+    setHidden() {
+        this.setState({
+            hidden: true,
+        });
+    }
+
     render() {
         const {hidden} = this.state;
         const {fieldSize} = this.props;
@@ -19,10 +26,6 @@ class Food extends Component {
             </div>
         )
     }
-}
-
-Food.defaultProps = {
-    hidden: false,
 }
 
 export default Food;

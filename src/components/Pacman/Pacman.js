@@ -84,15 +84,11 @@ class Pacman extends Component {
                 tabIndex="0"
                 style={position}
                 onKeyDown={this.handleKeyDown}
-                >
+            >
                 <PacmanSvg />
             </div>
         )
     }
-}
-
-Pacman.defaultProps = {
-
 }
 
 export default Pacman;
