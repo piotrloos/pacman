@@ -2,6 +2,5 @@
     position: relative;
     background-color: beige;
     border: 10px darkblue solid;
-    height: calc(100vh - 70px);
-    width: calc(100vw - 20px);
+    margin: auto;
 }

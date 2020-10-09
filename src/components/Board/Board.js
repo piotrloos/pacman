@@ -50,11 +50,15 @@ class Board extends Component {
     render () {
         const {width, height} = this.state;
         const {fieldSize} = this.props;
+        const dimensions = {
+            width: width * fieldSize,
+            height: height * fieldSize,
+        }
         let hidden = false;
 
         let foods = []
-        for (let x = 0; x < this.state.width; x++) {
-            for (let y = 0; y < this.state.height; y++) {
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
                 const position = {
                     left: x,
                     top: y,
@@ -73,7 +77,7 @@ class Board extends Component {
         }
 
         return (
-            <div className="board">
+            <div className="board" style={dimensions}>
                 <Pacman width={width} height={height} fieldSize={fieldSize} ref={this.pacmanRef} />
                 <Ghost color="red" width={width} height={height} fieldSize={fieldSize} />
                 <Ghost color="blue" width={width} height={height} fieldSize={fieldSize} />
